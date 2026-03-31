@@ -12,7 +12,7 @@ let drafts: Draft[] = [];
 // ============================================================
 
 export function getAllDrafts(filters: DraftFilters = {}): Draft[] {
-  const isEmptyFilter = Object.keys(filters).length === 0;
+  const isEmptyFilter = !filters.status && !filters.platform;
   if(isEmptyFilter){
     return drafts.filter((draft) => draft.status !== "DROPPED");
   }
