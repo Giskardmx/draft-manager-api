@@ -1,0 +1,54 @@
+enum DraftStatus {
+  IDEA
+  DRAFT
+  REVIEW
+  PUBLISHED
+  DROPPED
+}
+
+enum Platform {
+  blog
+  newsletter
+  twitter
+  linkedin
+}
+
+type Draft {
+  id: ID!
+  title: String!
+  body: String!
+  status: DraftStatus!
+  platform: Platform!
+  tags: [String!]!
+  estimatedPublishDate: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+input CreateDraftInput {
+  title: String!
+  body: String!
+  platform: Platform!
+  tags: [String!]
+  estimatedPublishDate: String
+}
+
+input UpdateDraftInput {
+  title: String
+  body: String
+  platform: Platform
+  tags: [String!]
+  status: DraftStatus
+  estimatedPublishDate: String
+}
+
+type Query {
+  drafts(status: DraftStatus, platform: Platform): [Draft!]!
+  draft(id: ID!): Draft
+}
+
+type Mutation {
+  createDraft(input: CreateDraftInput!): Draft!
+  updateDraft(id: ID!, input: UpdateDraftInput!): Draft
+  deleteDraft(id: ID!): Draft
+}
